@@ -1,5 +1,6 @@
 package guru.springframework.spring5webapp.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,12 +17,13 @@ public class Author {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	
 	@ManyToMany(mappedBy = "authors")
-	private Set<Book> books;
-	public Author(Long id, String firstName, String lastName, Set<Book> books) {
+	private Set<Book> books = new HashSet<>();
+	
+	public Author(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.books = books;
 	}
 	public Author() {
 		super();
@@ -68,10 +70,10 @@ public class Author {
 	@Override
 	public String toString() {
 		return "Author " 
-				+ "[id=" + id 
-				+ ", firstName=" + firstName 
-				+ ", lastName=" + lastName 
-				+ ", books=" + books + "]";
+			+ "[id=" + id 
+			+ ", firstName=" + firstName 
+			+ ", lastName=" + lastName 
+			+ ", books=" + books + "]";
 	}
 	
 	

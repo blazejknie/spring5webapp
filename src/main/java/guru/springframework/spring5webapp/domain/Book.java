@@ -1,5 +1,6 @@
 package guru.springframework.spring5webapp.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -21,16 +23,33 @@ public class Book {
 	private String isbn;
 	@ManyToMany
 	@JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
-	inverseJoinColumns = @JoinColumn(name = "author_id"))
-	private Set<Author> authors;
+			inverseJoinColumns = @JoinColumn(name = "author_id"))
+	private Set<Author> authors = new HashSet<>();
 	
-	public Book(Long id, String title, String isbn) {
-		this.id = id;
+	@ManyToOne
+	private Publisher publisher;
+	
+	public Book(String title, String isbn) {
 		this.title = title;
 		this.isbn = isbn;
 	}
 
-	
+	 
+	public Book() {
+		super();
+	}
+
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
+
 	public Set<Author> getAuthors() {
 		return authors;
 	}
